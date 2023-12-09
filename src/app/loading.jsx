@@ -1,14 +1,20 @@
+"use client";
+
 import React from "react";
-import ClipLoader from "react-spinners/ClipLoader";
+import { Puff } from "react-loader-spinner";
 
 export default function loading() {
   return (
-    <div className="w-full  min-h-screen flex justify-center items-center">
-      <ClipLoader
+    <div className="w-full min-h-[80vh] flex justify-center items-center">
+      <Puff
+        height="80"
+        width="80"
+        radius={1}
         color="#000"
-        size={150}
-        aria-label="Loading Spinner"
-        data-testid="loader"
+        ariaLabel="puff-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
       />
     </div>
   );

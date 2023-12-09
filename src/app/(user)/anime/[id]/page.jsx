@@ -10,8 +10,6 @@ export default async function page({ params: { id } }) {
   const dataCharacter = await getAnimeList(`anime/${id}/characters`);
   const characters = dataCharacter.data;
 
-  console.log(characters);
-
   return (
     <div className="max-w-screen-xl mx-auto px-6 pb-6">
       <h1 className="text-2xl font-bold text-center my-3">{anime.title}</h1>
@@ -25,7 +23,7 @@ export default async function page({ params: { id } }) {
         <div>
           <Image
             src={anime.images.webp.large_image_url}
-            alt="..."
+            alt={anime.title}
             width={250}
             height={550}
             className="w-full bg-black h-96 object-contain"

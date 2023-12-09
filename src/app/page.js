@@ -9,6 +9,8 @@ import {
   reproduce,
 } from "@/lib/api-libs";
 import { Button } from "@/components/ui/button";
+import Navbar from "@/components/Navbar";
+import Search from "@/components/Search";
 
 export default function Page() {
   const [topAnime, setTopAnime] = useState([]);
@@ -43,21 +45,25 @@ export default function Page() {
   }, [displayedTopAnime, displayedRecommendedAnime]);
 
   return (
-    <main className="w-full pb-6">
-      <Header title="Top Anime" />
-      <AnimeList data={topAnime} />
+    <>
+      <Navbar />
+      <Search />
+      <main className="w-full pb-6">
+        <Header title="Top Anime" />
+        <AnimeList data={topAnime} />
 
-      {displayedTopAnime <= 20 && (
-        <div className="w-full flex justify-center">
-          <Button onClick={loadMoreTopAnime} className="mt-4">
-            Load More Top Anime
-          </Button>
-        </div>
-      )}
+        {displayedTopAnime <= 20 && (
+          <div className="w-full flex justify-center">
+            <Button onClick={loadMoreTopAnime} className="mt-4">
+              Load More Top Anime
+            </Button>
+          </div>
+        )}
 
-      <div className="my-6"></div>
-      <Header title="Recommended Anime" />
-      <AnimeList data={recommendedAnime} />
-    </main>
+        <div className="my-6"></div>
+        <Header title="Recommended Anime" />
+        <AnimeList data={recommendedAnime} />
+      </main>
+    </>
   );
 }
