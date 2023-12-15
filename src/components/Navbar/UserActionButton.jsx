@@ -1,21 +1,53 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { authUserSession } from "@/lib/auth-libs";
 import { useSession } from "next-auth/react";
-import { getServerSession } from "next-auth";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default async function UserActionButton() {
   const session = useSession();
   const user = session?.data?.user;
 
-  const actionLabel = user ? "Sign Out" : "Sign In";
-  const actionUrl = user ? "api/auth/signout" : "api/auth/signin";
   return (
-    <Button asChild size="lg">
-      <Link href={actionUrl}>{actionLabel}</Link>
-    </Button>
+    <>
+      {user ? (
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <Avatar>
+              <AvatarImage src={user.image} />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <Link href={"/profile"}>
+              <DropdownMenuItem>Profile</DropdownMenuItem>
+            </Link>
+            <Link href={"/collection"}>
+              <DropdownMenuItem>Collection</DropdownMenuItem>
+            </Link>
+            <DropdownMenuSeparator />
+            <Link href={"/api/auth/signout"}>
+              <DropdownMenuItem>Sign out</DropdownMenuItem>
+            </Link>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ) : (
+        <Button asChild size="lg">
+          <Link href={"api/auth/signin"}>Sign In</Link>
+        </Button>
+      )}
+    </>
   );
 }
